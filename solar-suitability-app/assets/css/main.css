@@ -42,6 +42,13 @@ audio:not([controls]) {
 [hidden],
 template {
   display: none; }
+  
+@media screen and (	-webkit-min-device-pixel-ratio: 2){ 
+	/* 3 for galaxy s4 and s5, 2 for galaxy s3iphone 5 and 6, but there are edge cases where u*/
+	.appHelp{
+		font-size: 200%;
+	}
+}
 
 a {
   background-color: transparent; }
