@@ -102,12 +102,13 @@ define([
             basemap: 'solar',
             center: [app.query.latLngPt.x, app.query.latLngPt.y],
             showAttribution: false,
-            zoom: 18,
+            zoom: 19,
             minZoom: 18,
           });
           app.reportSolarMap.addLayer(solarLayer);
           app.reportSolarMap.on('load', function(){
             mapController.placePoint(app.query.latLngPt, app.reportSolarMap, config.pinSymbol);
+            app.reportSolarMap.disableMapNavigation();
           });
         } else {
         // Remove old point, move map to new point, add new point
@@ -123,7 +124,7 @@ define([
           basemap: 'hybrid',
           center: [app.query.latLngPt.x, app.query.latLngPt.y],
           showAttribution: false,
-          zoom: 18,
+          zoom: 19,
           minZoom: 18,
         });
 
@@ -131,6 +132,9 @@ define([
           id: 'reportSolarArray'
         });
         app.reportAerialMap.addLayer(reportSolarArrayLayer);
+        app.reportAerialMap.on('load', function(){
+            app.reportAerialMap.disableMapNavigation();
+          });
       } else {
         // Move map
         mapController.centerMap(app.query.latLngPt, app.reportAerialMap);
@@ -276,7 +280,7 @@ define([
       $toolbar.show();
 
       // Center and zoom main map on point
-      app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 18);
+      app.map.centerAndZoom([app.query.latLngPt.x, app.query.latLngPt.y], 19);
 
       // handle drawing
       this.handleSolarArrayDrawing();
@@ -322,6 +326,7 @@ define([
       // hide edit toolbar
       // $editToolbar = $('.editToolbar');
       // $editToolbar.hide();
+      $("#clearSolarArrayButton").hide();
       
       // Show solar layer
       app.map.getLayer('solar').show();
